@@ -13,4 +13,4 @@
       - git --version
     - cd <Your Directory>
     - git clone https://github.com/phoebe-223/PDFParser.git
-    -python套件要裝 : pip install natsort
+    - python套件要裝 : pip install natsort
