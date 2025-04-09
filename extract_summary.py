@@ -44,6 +44,7 @@ def print_pages_starting_with_summary(pdf_path):
             blFindOutline = True
             blEnterProblemList = False
             lineIdx = 0
+            problemText = ""
 
             while lineIdx < len(lines):
                 line = lines[lineIdx]
@@ -59,23 +60,30 @@ def print_pages_starting_with_summary(pdf_path):
                     blFindOutline = False
 
                 if line[:1] == "重" or line[:1] == "高" or line[:1] == "中" or line[:1] == "低" or line[:1] == "參":
-                    startIdx = 2
                     level = line[:1]
                     blEnterProblemList = True
                     blHasProblem = True
+                    problemText = line[2:] 
                 else:
                     if blEnterProblemList is True:
                         break
                     continue
 
-                if lineIdx + 1 >= len(lines):
-                    raise Exception("Error: 已到達最後一行，沒有下一行可讀")
+                while 1:
+                    if lineIdx >= len(lines):
+                        raise Exception("Error: 已到達最後一行，沒有下一行可讀")
 
-                count = lines[lineIdx].strip()
-                lineIdx += 1
+                    line = lines[lineIdx].strip()
+                    lineIdx += 1
 
-                print(f"{level}: {line[startIdx:]}, count: {count}")
-                append_to_csv(os.path.basename(pdf_path), level, line[startIdx:], count, output_file)
+                    if line.isdigit():
+                        count = line.strip()
+                        break
+                    else:
+                        problemText += line
+
+                print(f"{level}: {problemText}, count: {count}")
+                append_to_csv(os.path.basename(pdf_path), level, problemText, count, output_file)
 
         if blHasProblem is False:
             append_to_csv(os.path.basename(pdf_path), "-", "無", "0", output_file)
