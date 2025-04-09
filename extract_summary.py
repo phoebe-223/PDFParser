@@ -2,6 +2,7 @@ import os
 import fitz  # PyMuPDF
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
+from natsort import natsorted
 
 output_file = "output.xlsx"
 
@@ -96,7 +97,7 @@ def main(folder_path="."):
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    for file in os.listdir(folder_path):
+    for file in natsorted(os.listdir(folder_path)):
         if file.lower().endswith(".pdf"):
             full_path = os.path.join(folder_path, file)
             print_pages_starting_with_summary(full_path)
