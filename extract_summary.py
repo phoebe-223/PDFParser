@@ -63,7 +63,7 @@ def print_pages_starting_with_summary(pdf_path):
                     level = line[:1]
                     blEnterProblemList = True
                     blHasProblem = True
-                    problemText = line[2:]
+                    problemText = line[1:]
                 else:
                     if blEnterProblemList is True:
                         break
