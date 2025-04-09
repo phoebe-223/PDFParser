@@ -1,5 +1,7 @@
 # Usage
+- 把要檢測的 pdf 放到 pdfs 底下
 - python3 extract_summary.py
+- 結果會在 output.xlsx
   
 # Prepare 
 - 先安裝 git
